@@ -3,6 +3,8 @@
 
 # 屏蔽掉包
 target/
+src/test/
+.idea/
 
 # Log file
 *.log
