@@ -1,8 +1,20 @@
 package com.nf.web.controller;
 
+import com.nf.mvc.ViewResult;
 import com.nf.mvc.annotation.RequestController;
+import com.nf.mvc.annotation.RequestMapping;
+import com.nf.service.ExerciseService;
+import com.nf.vo.ResponseVO;
+
+import static com.nf.mvc.handler.HandlerHelper.json;
 
 @RequestController("/exercise")
 public class ExerciseController {
+    private  ExerciseService service ;
 
+    @RequestMapping("/list")
+    public ViewResult getExercises(){
+
+        return json(new ResponseVO(200,"查询成功",null));
+    }
 }
