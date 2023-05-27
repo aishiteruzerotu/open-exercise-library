@@ -1,9 +1,9 @@
-package com.nf.entity;
+package com.nf.vo;
 
 import com.nf.annotate.Auto;
 import com.nf.annotate.PrimaryKey;
 
-public class AdministratorsEntity {
+public class AdministratorsVo {
     @Auto
     @PrimaryKey
     private Integer id ;//用户id
@@ -12,7 +12,7 @@ public class AdministratorsEntity {
 
     @Override
     public String toString() {
-        return "AdministratorsEntity{" +
+        return "AdministratorsVo{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
