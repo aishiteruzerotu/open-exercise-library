@@ -1,6 +1,9 @@
 # Compiled class file
 *.class
 
+# 屏蔽掉 target 包下所有文件
+target/
+
 # Log file
 *.log
 
