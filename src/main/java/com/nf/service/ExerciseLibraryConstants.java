@@ -1,5 +1,11 @@
 package com.nf.service;
 
+/**
+ * 项目服务常量
+ */
 public interface ExerciseLibraryConstants {
-    static final String truncation = "<>BCT<>";
+    /**
+     *
+     */
+    String truncation = "<>BCT<>";
 }

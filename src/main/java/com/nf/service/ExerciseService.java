@@ -1,6 +1,5 @@
 package com.nf.service;
 
-import com.nf.entity.ExerciseEntity;
 import com.nf.vo.ExerciseVo;
 import com.nf.entity.Pagination;
 
@@ -11,13 +10,13 @@ public interface ExerciseService {
      * 获取全部的题目信息
      * @return  全部题目
      */
-    List<ExerciseEntity> getExercises();
+    List<ExerciseVo> getExercises();
 
     /**
      * 用户答的题
      * @return 单个题
      */
-    ExerciseEntity getExercise();
+    ExerciseVo getExercise();
 
     /**
      * 获取全部题目数量
@@ -30,7 +29,7 @@ public interface ExerciseService {
      * @param pagination 分页依据对象
      * @return 分页的数据信息
      */
-    List<ExerciseEntity> getPageExercises(Pagination pagination);
+    List<ExerciseVo> getPageExercises(Pagination pagination);
 
     /**
      * 根据题目类型获取到对应的数量
@@ -45,7 +44,7 @@ public interface ExerciseService {
      * @param pagination 分页依据
      * @return 分页的数据信息
      */
-    List<ExerciseEntity> getTypesPageExercises(String types, Pagination pagination);
+    List<ExerciseVo> getTypesPageExercises(String types, Pagination pagination);
 
     /**
      * 根据题目 id 删除题目

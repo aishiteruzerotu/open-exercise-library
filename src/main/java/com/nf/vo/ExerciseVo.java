@@ -3,6 +3,8 @@ package com.nf.vo;
 import com.nf.annotate.Auto;
 import com.nf.annotate.PrimaryKey;
 
+import java.util.Arrays;
+
 public class ExerciseVo {
     @Auto
     @PrimaryKey
@@ -10,11 +12,35 @@ public class ExerciseVo {
     private String types;//题目的类型
     private Integer correct;//提名都正确数量
     private String topic;//题目
-    private String toOption;//选项
-    private String answer;// 答案(解析)
+    private String[] toOptions;//选项
+    private String[] answers;// 答案(解析)
     //默认为 0 是因为，未被答题时候应该是 0
     private Long total = 0L;//该题被答的次数
     private Long numberErrors = 0L;//被答错的次数
+
+    /**
+     * 错误率
+     */
+    public double errorRate() {
+        return 100.0 * numberErrors / total;
+    }
+
+    public String getAccuracy() {
+        long result = Math.round(100 - this.errorRate());
+        return result + "%";
+    }
+
+    public String getErrorRate() {
+        long result = Math.round(this.errorRate());
+        return result + "%";
+    }
+
+    public String getErrorRateToText(){
+        if (this.numberErrors>70){
+            return "(易错题)";
+        }
+        return "";
+    };
 
     @Override
     public String toString() {
@@ -23,8 +49,8 @@ public class ExerciseVo {
                 ", types='" + types + '\'' +
                 ", correct=" + correct +
                 ", topic='" + topic + '\'' +
-                ", toOption='" + toOption + '\'' +
-                ", answer='" + answer + '\'' +
+                ", toOption='" + Arrays.toString(toOptions) + '\'' +
+                ", answer='" + Arrays.toString(answers) + '\'' +
                 ", total=" + total +
                 ", numberErrors=" + numberErrors +
                 '}';
@@ -62,20 +88,20 @@ public class ExerciseVo {
         this.topic = topic;
     }
 
-    public String getToOption() {
-        return toOption;
+    public String[] getToOptions() {
+        return toOptions;
     }
 
-    public void setToOption(String toOption) {
-        this.toOption = toOption;
+    public void setToOptions(String[] toOptions) {
+        this.toOptions = toOptions;
     }
 
-    public String getAnswer() {
-        return answer;
+    public String[] getAnswers() {
+        return answers;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void setAnswers(String[] answers) {
+        this.answers = answers;
     }
 
     public Long getTotal() {
