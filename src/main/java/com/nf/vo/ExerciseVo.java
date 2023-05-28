@@ -14,33 +14,48 @@ public class ExerciseVo {
     private String topic;//题目
     private String[] toOptions;//选项
     private String[] answers;// 答案(解析)
+    private OptionVo[] options;
     //默认为 0 是因为，未被答题时候应该是 0
     private Long total = 0L;//该题被答的次数
     private Long numberErrors = 0L;//被答错的次数
 
     /**
      * 错误率
+     *
+     * @return 错误率比
      */
     public double errorRate() {
         return 100.0 * numberErrors / total;
     }
 
+    /**
+     * 题目正确率
+     *
+     * @return 题目正确率
+     */
     public String getAccuracy() {
         long result = Math.round(100 - this.errorRate());
         return result + "%";
     }
 
+    /**
+     * 题目错误率
+     *
+     * @return 题目错误率
+     */
     public String getErrorRate() {
         long result = Math.round(this.errorRate());
         return result + "%";
     }
 
-    public String getErrorRateToText(){
-        if (this.numberErrors>70){
-            return "(易错题)";
-        }
-        return "";
-    };
+    /**
+     * 是否为易错题
+     *
+     * @return 不是返回空，是返回 (易错题)
+     */
+    public String getErrorRateToText() {
+        return this.numberErrors > 70 ? "(易错题)" : "";
+    }
 
     @Override
     public String toString() {
@@ -54,6 +69,14 @@ public class ExerciseVo {
                 ", total=" + total +
                 ", numberErrors=" + numberErrors +
                 '}';
+    }
+
+    public OptionVo[] getOptions() {
+        return options;
+    }
+
+    public void setOptions(OptionVo[] options) {
+        this.options = options;
     }
 
     public Integer getId() {
