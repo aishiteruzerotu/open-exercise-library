@@ -4,9 +4,9 @@ import com.nf.mvc.ViewResult;
 import com.nf.mvc.annotation.RequestController;
 import com.nf.mvc.annotation.RequestMapping;
 import com.nf.mvc.annotation.RequestModel;
+import com.nf.mvc.annotation.RequestParam;
 import com.nf.service.ExerciseService;
 import com.nf.vo.ExerciseVo;
-import com.nf.vo.OptionVo;
 import com.nf.vo.ResponseVO;
 
 import static com.nf.mvc.handler.HandlerHelper.json;
@@ -19,6 +19,14 @@ public class ExerciseController {
     public ViewResult getExercises(){
 
         return json(new ResponseVO(200,"查询成功",null));
+    }
+
+    @RequestMapping("/list/page")
+    public ViewResult pagedList(@RequestParam("types") String types,
+                                @RequestParam(defaultValue = "1") int pageNo,
+                                @RequestParam(defaultValue = "2") int pageSize) {
+
+        return json(new ResponseVO(200, "ok", null));
     }
 
     @RequestMapping("/add")
@@ -36,4 +44,18 @@ public class ExerciseController {
         System.out.println("exerciseVo = " + exerciseVo);
         return json(new ResponseVO(200,"插入成功",exerciseVo));
     }
+
+    @RequestMapping("/delete")
+    public ViewResult delete(@RequestParam("id") int id){
+
+        return json(new ResponseVO(200,"删除成功",null));
+    }
+
+    @RequestMapping("/update")
+    public ViewResult update(@RequestParam("id") int id){
+
+        return json(new ResponseVO(200,"删除成功",null));
+    }
+
+
 }
