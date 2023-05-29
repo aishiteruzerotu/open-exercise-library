@@ -17,6 +17,8 @@ src/test/
 .mtj.tmp/
 
 # Package Files #
+*.properties
+pom.xml
 *.jar
 *.war
 *.nar

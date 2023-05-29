@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="lib/vue.js"></script>
+    <script src="lib/axios.min.js"></script>
+    <script src="lib/common.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <div id="app" class="">
+        <div class="">
+
+        </div>
+        <div>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                增加
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">添加</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form name="add" id="add">
+                                <p>id:<input type="text" name="id"></p>
+                                <p>品类：<select name="cid">
+                                    <option value ="1">手机</option>
+                                    <option value ="2">电脑</option>
+                                    <option value="3">空调</option>
+                                    <option value="4">电视机</option>
+                                  </select>
+                                </p>
+                                <p>名称：<input type="text" name="name"></p>
+                                <input type="hidden" name="image">
+                                <p>价格：<input type="text" name="price"></p>
+                                <p>数量：<input type="text" name="count"></p>
+                                <p>状态：<input type="text" name="status"></p>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="empty">关闭</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" @click="add">保存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+
+        },
+        methods: {
+
+        },
+        created: function () {
+            // this.getCategoryList()
+        },
+    })
+</script>
