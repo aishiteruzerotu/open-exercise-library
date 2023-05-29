@@ -51,19 +51,19 @@ public interface ExerciseDao {
      * @param id 题目编号
      * @return 是否删除成功
      */
-    boolean delete(int id);
+    Long delete(int id);
 
     /**
      * 添加题目
      * @param exercise 题目信息
      * @return 是否添加成功
      */
-    boolean insert(ExerciseEntity exercise);
+    Long insert(ExerciseEntity exercise);
 
     /**
      * 修改题目
      * @param exercise 题目信息
      * @return 是否修改成功
      */
-    boolean update(ExerciseEntity exercise);
+    Long update(ExerciseEntity exercise);
 }

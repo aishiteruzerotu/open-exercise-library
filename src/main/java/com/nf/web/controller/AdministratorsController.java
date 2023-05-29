@@ -4,6 +4,7 @@ import com.nf.mvc.ViewResult;
 import com.nf.mvc.annotation.RequestController;
 import com.nf.mvc.annotation.RequestMapping;
 import com.nf.mvc.annotation.RequestModel;
+import com.nf.mvc.annotation.RequestParam;
 import com.nf.service.AdministratorsService;
 import com.nf.vo.AdministratorsVo;
 import com.nf.vo.ResponseVO;
@@ -22,6 +23,18 @@ public class AdministratorsController {
 
     @RequestMapping("/sign/up")
     public ViewResult signUp(@RequestModel AdministratorsVo administratorsVo){
+
+        return json(new ResponseVO(200,"注册成功",null));
+    }
+
+    @RequestMapping("/update")
+    public ViewResult update(@RequestModel AdministratorsVo administratorsVo){
+
+        return json(new ResponseVO(200,"注册成功",null));
+    }
+
+    @RequestMapping("/delete")
+    public ViewResult delete(@RequestParam("id") int id){
 
         return json(new ResponseVO(200,"注册成功",null));
     }

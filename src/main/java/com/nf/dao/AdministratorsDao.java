@@ -6,14 +6,28 @@ public interface AdministratorsDao {
     /**
      * 判断管理员账号密码是否正确
      * @param administratorsEntity 管理员账号
-     * @return 用户账号密码输入错误则返回假
+     * @return 被影响的行
      */
     Long longin(AdministratorsEntity administratorsEntity);
 
     /**
      * 注册账号
      * @param administratorsEntity 注册管理员
-     * @return 注册成功返回真
+     * @return 被影响的行
      */
     Long signUp(AdministratorsEntity administratorsEntity);
+
+    /**
+     * 修改账号
+     * @param administratorsEntity 修改的账号
+     * @return 被影响的行
+     */
+    Long update(AdministratorsEntity administratorsEntity);
+
+    /**
+     * 删除账号
+     * @param id 被删除账号id
+     * @return 被影响的行
+     */
+    Long delete(int id);
 }

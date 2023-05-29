@@ -15,8 +15,12 @@ import static com.nf.mvc.handler.HandlerHelper.json;
 public class ExerciseController {
     private  ExerciseService service ;
 
-    @RequestMapping("/list")
-    public ViewResult getExercises(){
+    /**
+     * 随机获取一道题
+     * @return JsonViewResult 数据对象
+     */
+    @RequestMapping("/exercise")
+    public ViewResult getExercise(){
 
         return json(new ResponseVO(200,"查询成功",null));
     }
@@ -52,7 +56,7 @@ public class ExerciseController {
     }
 
     @RequestMapping("/update")
-    public ViewResult update(@RequestParam("id") int id){
+    public ViewResult update(@RequestModel ExerciseVo exerciseVo){
 
         return json(new ResponseVO(200,"删除成功",null));
     }
