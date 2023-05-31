@@ -51,19 +51,26 @@ public interface ExerciseDao {
      * @param id 题目编号
      * @return 是否删除成功
      */
-    Long delete(int id);
+    int delete(int id);
 
     /**
      * 添加题目
      * @param exercise 题目信息
      * @return 是否添加成功
      */
-    Long insert(ExerciseEntity exercise);
+    int insert(ExerciseEntity exercise);
 
     /**
      * 修改题目
      * @param exercise 题目信息
      * @return 是否修改成功
      */
-    Long update(ExerciseEntity exercise);
+    int update(ExerciseEntity exercise);
+
+    /**
+     * 用户回答了 id 这个题后，对这个题的答题数量做增加操作，同时传入的 isCorrectness 是判断该题是否是用户答对的题，是输入真
+     * @param id 题号
+     * @param isCorrectness 该题是否被用户答对
+     */
+    void answered(int id,boolean isCorrectness);
 }

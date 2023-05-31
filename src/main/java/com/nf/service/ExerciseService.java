@@ -66,4 +66,11 @@ public interface ExerciseService {
      * @return 是否修改成功
      */
     boolean update(ExerciseVo exercise);
+
+    /**
+     * 用户回答了 id 这个题后，对这个题的答题数量做增加操作，同时传入的 isCorrectness 是判断该题是否是用户答对的题，是输入真
+     * @param id 题号
+     * @param isCorrectness 该题是否被用户答对
+     */
+    void answered(int id,boolean isCorrectness);
 }

@@ -2,7 +2,9 @@ package com.nf.entity;
 
 import com.nf.annotate.Auto;
 import com.nf.annotate.PrimaryKey;
+import com.nf.annotate.TableName;
 
+@TableName("administrators")
 public class AdministratorsEntity {
     @Auto
     @PrimaryKey
