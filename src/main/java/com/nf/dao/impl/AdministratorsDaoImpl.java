@@ -11,7 +11,7 @@ public class AdministratorsDaoImpl implements AdministratorsDao {
 
     @Override
     public Long longin(AdministratorsEntity administratorsEntity) {
-        String sql = "select count(*) where administrators where id=? and password=? or name=? and password=?";
+        String sql = "select count(*) from administrators where id=? and password=? or name=? and password=?";
         return executor.query(sql,new ScalarHandler<>(),
                 administratorsEntity.getId(),administratorsEntity.getPassword(),
                 administratorsEntity.getName(),administratorsEntity.getPassword());
