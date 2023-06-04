@@ -18,7 +18,8 @@ src/test/
 
 # Package Files #
 *.properties
-pom.xml
+*.xml
+*.iml
 *.jar
 *.war
 *.nar

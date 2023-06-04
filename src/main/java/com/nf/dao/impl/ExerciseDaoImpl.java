@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class ExerciseDaoImpl implements ExerciseDao {
     private final SqlExecutorEx executor = DataSourceUtils.getSqlExecutorEx();
     private final GenerateSQL generate = new GenerateSQLRealize();
-    private final String COUNT_SQL = "select count(*) where exerciseLibrary ";
+    private final String COUNT_SQL = "select count(*) from exerciseLibrary ";
 
     @Override
     public List<ExerciseEntity> getExercises() {
@@ -33,7 +33,7 @@ public class ExerciseDaoImpl implements ExerciseDao {
         return this.getExercise(id);
     }
 
-    public ExerciseEntity getExercise(int id) {
+    public synchronized ExerciseEntity getExercise(int id) {
         String sql = generate.generateSelect(ExerciseEntity.class) + " where id=? ";
         return executor.queryBean(sql, ExerciseEntity.class, id);
     }
@@ -104,7 +104,7 @@ public class ExerciseDaoImpl implements ExerciseDao {
     }
 
     @Override
-    public void answered(int id, boolean isCorrectness) {
+    public synchronized void answered(int id, boolean isCorrectness) {
         ExerciseEntity exercise = this.getExercise(id);
         if (isCorrectness){
             String sql = "update exerciseLibrary set total=? where id=?";
