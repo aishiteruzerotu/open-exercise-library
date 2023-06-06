@@ -64,8 +64,9 @@ public class ExerciseVo {
                 ", types='" + types + '\'' +
                 ", correct=" + correct +
                 ", topic='" + topic + '\'' +
-                ", toOption='" + Arrays.toString(toOptions) + '\'' +
-                ", answer='" + Arrays.toString(answers) + '\'' +
+                ", toOptions=" + Arrays.toString(toOptions) +
+                ", answers=" + Arrays.toString(answers) +
+                ", options=" + Arrays.toString(options) +
                 ", total=" + total +
                 ", numberErrors=" + numberErrors +
                 '}';
