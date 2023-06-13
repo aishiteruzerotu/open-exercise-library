@@ -57,6 +57,17 @@ public class ExerciseVo {
         return this.numberErrors > 70 ? "(易错题)" : "";
     }
 
+    public String getAnswerText() {
+        return "解析：" + Arrays.stream(this.getOptions())
+                .filter(option -> !option.isCorrect())
+                .map(option -> option.getOption() + "." + option.getAnswer())
+                .reduce("", (i, j) -> (i + " " + j));
+    }
+
+    public String getTopicText() {
+        return "(" + this.getTypes() + ") " + this.getId() + "、 " + this.getErrorRateToText() + this.getTopic();
+    }
+
     @Override
     public String toString() {
         return "ExerciseVo{" +
