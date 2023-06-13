@@ -34,11 +34,11 @@ public class ExerciseController {
     }
 
     @RequestMapping("/list/page")
-    public ViewResult pagedList(@RequestParam("types") String types,
+    public ViewResult pagedList(@RequestParam(defaultValue = "") String types,
                                 @RequestParam(defaultValue = "1") int pageNo,
                                 @RequestParam(defaultValue = "2") int pageSize) {
 
-        boolean isNotNull = Optional.ofNullable(types).isPresent();
+        boolean isNotNull = types==null && types.isEmpty();
 
         Long count = isNotNull ? service.typesCount(types) : service.count();
 
