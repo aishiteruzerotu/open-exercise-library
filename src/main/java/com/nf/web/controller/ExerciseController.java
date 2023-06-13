@@ -14,7 +14,6 @@ import com.nf.vo.PagedVO;
 import com.nf.vo.ResponseVO;
 
 import java.util.List;
-import java.util.Optional;
 
 import static com.nf.mvc.handler.HandlerHelper.json;
 
@@ -51,17 +50,6 @@ public class ExerciseController {
 
     @RequestMapping("/add")
     public ViewResult insert(@RequestModel ExerciseVo exerciseVo) {
-//        exerciseVo.setOptions(new OptionVo[]{
-//                new OptionVo(
-//                        exerciseVo.getToOptions()[0],
-//                        true,""
-//                ),
-//                new OptionVo(
-//                        exerciseVo.getToOptions()[1],
-//                        false,exerciseVo.getAnswers()[1]
-//                )
-//        });
-        System.out.println("exerciseVo = " + exerciseVo);
         return service.insert(exerciseVo) ?
                 json(new ResponseVO(200, "添加成功", true)) :
                 json(new ResponseVO(500, "添加失败", false));
