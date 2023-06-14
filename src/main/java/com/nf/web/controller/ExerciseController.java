@@ -71,5 +71,11 @@ public class ExerciseController {
                 json(new ResponseVO(500, "修改失败", false));
     }
 
+    @RequestMapping("/answered")
+    public ViewResult answered(@RequestParam(value = "id" ,defaultValue = "0") int id,
+                         @RequestParam(value = "isCorrectness" ,defaultValue = "true") boolean isCorrectness) {
 
+        service.answered(id,isCorrectness);
+        return json(new ResponseVO(200, "执行成功", true));
+    }
 }

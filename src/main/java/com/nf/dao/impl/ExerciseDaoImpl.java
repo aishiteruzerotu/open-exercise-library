@@ -106,6 +106,9 @@ public class ExerciseDaoImpl implements ExerciseDao {
     @Override
     public synchronized void answered(int id, boolean isCorrectness) {
         ExerciseEntity exercise = this.getExercise(id);
+        if (exercise==null){
+            return;
+        }
         if (isCorrectness){
             String sql = "update exerciseLibrary set total=? where id=?";
             executor.update(sql,(exercise.getTotal()+1),exercise.getId());
