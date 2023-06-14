@@ -22,6 +22,11 @@ public class OptionVo {
         this.answer = answer;
     }
 
+    public boolean getChecked(){
+        //前端确定该选项是没有被预先选择的
+        return false;
+    }
+
     public String getOptionText() {
         return option + "." + optionValue;
     }

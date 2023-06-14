@@ -28,7 +28,7 @@ public class ExerciseDaoImpl implements ExerciseDao {
 
     @Override
     public ExerciseEntity getExercise() {
-        Random random = new Random(this.count());
+        Random random = new Random();
         int id = random.nextInt(this.count().intValue()) + 1;
         return this.getExercise(id);
     }

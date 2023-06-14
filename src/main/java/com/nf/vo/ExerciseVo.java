@@ -58,10 +58,15 @@ public class ExerciseVo {
     }
 
     public String getAnswerText() {
+        String reduce = Arrays.stream(this.getOptions())
+                .filter(OptionVo::isCorrect)
+                .map(OptionVo::getOption)
+                .reduce((i, j) -> (i + "、" + j))
+                .orElse("");
         return "解析：" + Arrays.stream(this.getOptions())
                 .filter(option -> !option.isCorrect())
                 .map(option -> option.getOption() + "." + option.getAnswer())
-                .reduce("", (i, j) -> (i + " " + j));
+                .reduce(reduce + " ", (i, j) -> (i + " " + j));
     }
 
     public String getTopicText() {
