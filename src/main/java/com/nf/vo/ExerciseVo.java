@@ -1,13 +1,8 @@
 package com.nf.vo;
 
-import com.nf.annotate.Auto;
-import com.nf.annotate.PrimaryKey;
-
 import java.util.Arrays;
 
 public class ExerciseVo {
-    @Auto
-    @PrimaryKey
     private Integer id;//编号
     private String types;//题目的类型
     private Integer correct;//提名都正确数量

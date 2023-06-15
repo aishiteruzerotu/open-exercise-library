@@ -3,11 +3,24 @@ package com.nf.dao.impl;
 import com.nf.SqlExecutorEx;
 import com.nf.dao.AdministratorsDao;
 import com.nf.entity.AdministratorsEntity;
+import com.nf.handler.BeanHandler;
 import com.nf.handler.ScalarHandler;
 import com.nf.util.DataSourceUtils;
 
 public class AdministratorsDaoImpl implements AdministratorsDao {
     private final SqlExecutorEx executor = DataSourceUtils.getSqlExecutorEx();
+
+    @Override
+    public AdministratorsEntity getAdmin(int id) {
+        String sql = "select id,name,password from administrators where id=?";
+        return executor.query(sql,new BeanHandler<>(AdministratorsEntity.class),id);
+    }
+
+    @Override
+    public AdministratorsEntity getAdmin(String name) {
+        String sql = "select id,name,password from administrators where name=?";
+        return executor.query(sql,new BeanHandler<>(AdministratorsEntity.class),name);
+    }
 
     @Override
     public Long longin(AdministratorsEntity administratorsEntity) {

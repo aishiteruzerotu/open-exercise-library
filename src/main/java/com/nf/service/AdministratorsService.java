@@ -4,6 +4,20 @@ import com.nf.vo.AdministratorsVo;
 
 public interface AdministratorsService {
     /**
+     * 使用id获取登入账号
+     * @param id 管理员id
+     * @return 管理员实体
+     */
+    AdministratorsVo getAdmin(int id);
+
+    /**
+     * 使用name获取登入账号
+     * @param name 管理员 name
+     * @return 管理员实体
+     */
+    AdministratorsVo getAdmin(String name);
+
+    /**
      * 判断管理员账号密码是否正确
      * @param administratorsVo 管理员账号
      * @return 用户账号密码输入错误则返回假

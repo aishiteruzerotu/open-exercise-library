@@ -1,11 +1,6 @@
 package com.nf.vo;
 
-import com.nf.annotate.Auto;
-import com.nf.annotate.PrimaryKey;
-
 public class AdministratorsVo {
-    @Auto
-    @PrimaryKey
     private Integer id ;//用户id
     private String name ;//用户名称
     private String password ;//密码
