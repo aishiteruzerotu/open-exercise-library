@@ -6,11 +6,12 @@ create table administrators
 (
     id       int auto_increment primary key,##用户id
     name     varchar(50),##用户名称
-    password varchar(16)##密码
+    password varchar(16),##密码
+    authority bit
 );
 drop table administrators;
-insert into administrators(name, password)
-VALUES ('admin', '123456');
+insert into administrators(name, password,authority)
+VALUES ('admin', '123456',true);
 
 select *
 from administrators;

@@ -11,6 +11,7 @@ public class AdministratorsEntity {
     private Integer id ;//用户id
     private String name ;//用户名称
     private String password ;//密码
+    private Boolean authority;//权限
 
     @Override
     public String toString() {
@@ -18,7 +19,16 @@ public class AdministratorsEntity {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
+                ", authority=" + authority +
                 '}';
+    }
+
+    public Boolean getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(Boolean authority) {
+        this.authority = authority;
     }
 
     public Integer getId() {
