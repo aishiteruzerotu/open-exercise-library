@@ -27,9 +27,9 @@ public class AdministratorsVo {
         this.authority = authority;
         if (listing==null || listing.length==0){
             ArrayList<String> list = new ArrayList<>();
-            list.add("修改账号");
-            list.add("退出登入");
-            if (this.authority) list.add("管理账户");
+            list.add("noUpdateAdmin");//修改账号
+            list.add("noExitAdmin");//退出登入
+            if (this.authority) list.add("noManageAdmin");//管理账号
             this.listing = list.toArray(String[]::new);
         }
     }

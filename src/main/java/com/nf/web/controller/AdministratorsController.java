@@ -20,10 +20,10 @@ public class AdministratorsController {
 
     @RequestMapping("/longin")
     public ViewResult longin(@RequestModel AdministratorsVo administratorsVo) {
-        System.out.println("administratorsVo="+administratorsVo);
+
         AdministratorsVo admin = Optional.of(service.getAdmin(administratorsVo.getId()))
                 .orElse(service.getAdmin(administratorsVo.getName()));
-        System.out.println(admin);
+
         return service.longin(administratorsVo) ?
                 json(new ResponseVO(200, "登入成功", admin)) :
                 json(new ResponseVO(500, "登入失败", false));
