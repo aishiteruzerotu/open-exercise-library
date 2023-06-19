@@ -10,6 +10,7 @@ import com.nf.mvc.annotation.RequestParam;
 import com.nf.service.ExerciseService;
 import com.nf.service.impl.ExerciseServiceImpl;
 import com.nf.vo.ExerciseVo;
+import com.nf.vo.PageVo;
 import com.nf.vo.PagedVO;
 import com.nf.vo.ResponseVO;
 
@@ -33,17 +34,15 @@ public class ExerciseController {
     }
 
     @RequestMapping("/list/page")
-    public ViewResult pagedList(@RequestParam(defaultValue = "") String types,
-                                @RequestParam(defaultValue = "1") int pageNo,
-                                @RequestParam(defaultValue = "2") int pageSize) {
-
-        boolean isNotNull = types==null && types.isEmpty();
+    public ViewResult pagedList(@RequestModel PageVo pageVo) {
+        String types = pageVo.getTypes();
+        boolean isNotNull = !(types == null || types.isEmpty());
 
         Long count = isNotNull ? service.typesCount(types) : service.count();
 
-        Pagination pagination = new Pagination(pageSize, pageNo, count);
+        Pagination pagination = new Pagination(pageVo.getPageSize(), pageVo.getPageNo(), count);
         List<ExerciseVo> pageExercises = isNotNull ? service.getTypesPageExercises(types, pagination) : service.getPageExercises(pagination);
-        
+
         PagedVO<ExerciseVo> pagedVO = new PagedVO<>(new PaginationText(pagination), pageExercises);
         return json(new ResponseVO(200, "ok", pagedVO));
     }
@@ -72,10 +71,10 @@ public class ExerciseController {
     }
 
     @RequestMapping("/answered")
-    public ViewResult answered(@RequestParam(value = "id" ,defaultValue = "0") int id,
-                         @RequestParam(value = "isCorrectness" ,defaultValue = "true") boolean isCorrectness) {
+    public ViewResult answered(@RequestParam(value = "id", defaultValue = "0") int id,
+                               @RequestParam(value = "isCorrectness", defaultValue = "true") boolean isCorrectness) {
 
-        service.answered(id,isCorrectness);
+        service.answered(id, isCorrectness);
         return json(new ResponseVO(200, "执行成功", true));
     }
 }
