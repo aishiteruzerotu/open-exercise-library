@@ -39,7 +39,7 @@ public class AdministratorsDaoImpl implements AdministratorsDao {
 
     @Override
     public int update(AdministratorsEntity administratorsEntity) {
-        String sql = "update student set name=?,password=? where id = ?";
+        String sql = "update administrators set name=?,password=? where id = ?";
         return executor.update(sql, administratorsEntity.getName(),
                 administratorsEntity.getPassword(),
                 administratorsEntity.getId());

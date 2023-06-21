@@ -26,6 +26,16 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
+    public ExerciseVo getExercise(int id) {
+        return ExerciseServiceImpl.copyExerciseVo(dao.getExercise(id));
+    }
+
+    @Override
+    public ExerciseVo getExercise(int id, String types) {
+        return ExerciseServiceImpl.copyExerciseVo(dao.getExercise(id, types));
+    }
+
+    @Override
     public Long count() {
         return dao.count();
     }
@@ -111,6 +121,10 @@ public class ExerciseServiceImpl implements ExerciseService {
      * @return web 响应对象
      */
     private static ExerciseVo copyExerciseVo(ExerciseEntity entity) {
+        if (entity == null) {
+            return null;
+        }
+
         ExerciseVo exerciseVo = Convert.toBean(ExerciseVo.class, entity);
 
         exerciseVo.setToOptions(ExerciseServiceImpl.split(entity.getToOption()));

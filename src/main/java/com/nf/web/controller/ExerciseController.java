@@ -1,5 +1,6 @@
 package com.nf.web.controller;
 
+import com.nf.Convert;
 import com.nf.entity.Pagination;
 import com.nf.entity.PaginationText;
 import com.nf.mvc.ViewResult;
@@ -7,13 +8,13 @@ import com.nf.mvc.annotation.RequestController;
 import com.nf.mvc.annotation.RequestMapping;
 import com.nf.mvc.annotation.RequestModel;
 import com.nf.mvc.annotation.RequestParam;
+import com.nf.mvc.view.JsonViewResult;
 import com.nf.service.ExerciseService;
 import com.nf.service.impl.ExerciseServiceImpl;
-import com.nf.vo.ExerciseVo;
-import com.nf.vo.PageVo;
-import com.nf.vo.PagedVO;
-import com.nf.vo.ResponseVO;
+import com.nf.vo.*;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.nf.mvc.handler.HandlerHelper.json;
@@ -35,13 +36,40 @@ public class ExerciseController {
 
     @RequestMapping("/list/page")
     public ViewResult pagedList(@RequestModel PageVo pageVo) {
-        String types = pageVo.getTypes();
+
+        GetExerciseVo getExerciseVo = Convert.toBean(GetExerciseVo.class, pageVo);
+        getExerciseVo.setId(0);
+
+        return this.getViewResult(getExerciseVo);
+    }
+
+    @RequestMapping("/get_exercise")
+    public ViewResult getExercise(@RequestModel GetExerciseVo getExerciseVo) {
+        return this.getViewResult(getExerciseVo);
+    }
+
+    @NotNull
+    private JsonViewResult getViewResult(GetExerciseVo getExerciseVo) {
+        String types = getExerciseVo.getTypes();
         boolean isNotNull = !(types == null || types.isEmpty());
 
         Long count = isNotNull ? service.typesCount(types) : service.count();
 
-        Pagination pagination = new Pagination(pageVo.getPageSize(), pageVo.getPageNo(), count);
+        Pagination pagination = new Pagination(getExerciseVo.getPageSize(), getExerciseVo.getPageNo(), count);
         List<ExerciseVo> pageExercises = isNotNull ? service.getTypesPageExercises(types, pagination) : service.getPageExercises(pagination);
+
+        if (getExerciseVo.getId() != 0) {
+            pageExercises = new ArrayList<>();
+
+            ExerciseVo exerciseVo = isNotNull ?
+                    service.getExercise(getExerciseVo.getId(), getExerciseVo.getTypes()) :
+                    service.getExercise(getExerciseVo.getId());
+
+            if (exerciseVo != null){
+                pageExercises.add(exerciseVo);
+                pagination = new Pagination(getExerciseVo.getPageSize(), getExerciseVo.getPageNo(), 1L);
+            }
+        }
 
         PagedVO<ExerciseVo> pagedVO = new PagedVO<>(new PaginationText(pagination), pageExercises);
         return json(new ResponseVO(200, "ok", pagedVO));

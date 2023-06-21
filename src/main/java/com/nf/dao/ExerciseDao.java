@@ -19,6 +19,21 @@ public interface ExerciseDao {
     ExerciseEntity getExercise();
 
     /**
+     * 查找题目
+     * @param id 搜索 id
+     * @return 单个题
+     */
+    ExerciseEntity getExercise(int id);
+
+    /**
+     * 查找题目
+     * @param id 搜索 id
+     * @param types 搜索分类
+     * @return 单个题
+     */
+    ExerciseEntity getExercise(int id,String types);
+
+    /**
      * 获取全部题目数量
      * @return 题目数量
      */

@@ -33,9 +33,16 @@ public class ExerciseDaoImpl implements ExerciseDao {
         return this.getExercise(id);
     }
 
+    @Override
     public synchronized ExerciseEntity getExercise(int id) {
         String sql = generate.generateSelect(ExerciseEntity.class) + " where id=? ";
         return executor.queryBean(sql, ExerciseEntity.class, id);
+    }
+
+    @Override
+    public ExerciseEntity getExercise(int id, String types) {
+        String sql = generate.generateSelect(ExerciseEntity.class) + " where id=? and types=?";
+        return executor.queryBean(sql, ExerciseEntity.class, id, types);
     }
 
     /**
@@ -106,15 +113,15 @@ public class ExerciseDaoImpl implements ExerciseDao {
     @Override
     public synchronized void answered(int id, boolean isCorrectness) {
         ExerciseEntity exercise = this.getExercise(id);
-        if (exercise==null){
+        if (exercise == null) {
             return;
         }
-        if (isCorrectness){
+        if (isCorrectness) {
             String sql = "update exerciseLibrary set total=? where id=?";
-            executor.update(sql,(exercise.getTotal()+1),exercise.getId());
-        }else {
+            executor.update(sql, (exercise.getTotal() + 1), exercise.getId());
+        } else {
             String sql = "update exerciseLibrary set total=?,numberErrors=? where id=?";
-            executor.update(sql,(exercise.getTotal()+1),(exercise.getNumberErrors()+1),exercise.getId());
+            executor.update(sql, (exercise.getTotal() + 1), (exercise.getNumberErrors() + 1), exercise.getId());
         }
     }
 }
