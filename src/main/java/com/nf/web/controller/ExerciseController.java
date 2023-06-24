@@ -35,7 +35,7 @@ public class ExerciseController {
     }
 
     @RequestMapping("/list/page")
-    public ViewResult pagedList(@RequestModel PageVo pageVo) {
+    public ViewResult pagedList(@RequestModel ExercisesPageVo pageVo) {
 
         GetExerciseVo getExerciseVo = Convert.toBean(GetExerciseVo.class, pageVo);
         getExerciseVo.setId(0);

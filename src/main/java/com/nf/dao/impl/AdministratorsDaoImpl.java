@@ -4,9 +4,13 @@ import com.nf.GenerateSQLRealize;
 import com.nf.SqlExecutorEx;
 import com.nf.dao.AdministratorsDao;
 import com.nf.entity.AdministratorsEntity;
+import com.nf.entity.Pagination;
 import com.nf.handler.BeanHandler;
+import com.nf.handler.BeanListHandler;
 import com.nf.handler.ScalarHandler;
 import com.nf.util.DataSourceUtils;
+
+import java.util.List;
 
 public class AdministratorsDaoImpl implements AdministratorsDao {
     private final SqlExecutorEx executor = DataSourceUtils.getSqlExecutorEx();
@@ -43,6 +47,20 @@ public class AdministratorsDaoImpl implements AdministratorsDao {
         return executor.update(sql, administratorsEntity.getName(),
                 administratorsEntity.getPassword(),
                 administratorsEntity.getId());
+    }
+
+    @Override
+    public Long count() {
+        String sql = "select count(*) from administrators ";
+        return executor.query(sql,new ScalarHandler<>());
+    }
+
+    @Override
+    public List<AdministratorsEntity> getAdmins(Pagination pagination) {
+        String sql = new GenerateSQLRealize().generateSelect(AdministratorsEntity.class);
+        sql += " limit ?,?";
+        return executor.query(sql, new BeanListHandler<>(AdministratorsEntity.class),
+                pagination.getStart(), pagination.getCount());
     }
 
     @Override

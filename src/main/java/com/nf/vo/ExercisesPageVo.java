@@ -1,6 +1,6 @@
 package com.nf.vo;
 
-public class PageVo {
+public class ExercisesPageVo {
     private String types;
     private int pageNo;
     private int pageSize;

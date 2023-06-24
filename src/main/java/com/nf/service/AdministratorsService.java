@@ -1,6 +1,9 @@
 package com.nf.service;
 
+import com.nf.entity.Pagination;
 import com.nf.vo.AdministratorsVo;
+
+import java.util.List;
 
 public interface AdministratorsService {
     /**
@@ -37,6 +40,19 @@ public interface AdministratorsService {
      * @return 是否修改成功
      */
     boolean update(AdministratorsVo administratorsVo);
+
+    /**
+     * 获取全部题目数量
+     * @return 题目数量
+     */
+    Long count();
+
+    /**
+     * 分页获取管理员
+     * @param pagination 分页方法
+     * @return 管理员集合
+     */
+    List<AdministratorsVo> getAdmins(Pagination pagination);
 
     /**
      * 删除账号

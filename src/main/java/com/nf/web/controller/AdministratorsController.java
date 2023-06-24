@@ -1,5 +1,7 @@
 package com.nf.web.controller;
 
+import com.nf.entity.Pagination;
+import com.nf.entity.PaginationText;
 import com.nf.mvc.ViewResult;
 import com.nf.mvc.annotation.RequestController;
 import com.nf.mvc.annotation.RequestMapping;
@@ -7,9 +9,9 @@ import com.nf.mvc.annotation.RequestModel;
 import com.nf.mvc.annotation.RequestParam;
 import com.nf.service.AdministratorsService;
 import com.nf.service.impl.AdministratorsServiceImpl;
-import com.nf.vo.AdministratorsVo;
-import com.nf.vo.ResponseVO;
+import com.nf.vo.*;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.nf.mvc.handler.HandlerHelper.json;
@@ -33,7 +35,7 @@ public class AdministratorsController {
     public ViewResult signUp(@RequestModel AdministratorsVo administratorsVo) {
 
         return service.signUp(administratorsVo) ?
-                json(new ResponseVO(200, "注册成功", administratorsVo)) :
+                json(new ResponseVO(200, "注册成功", true)) :
                 json(new ResponseVO(500, "注册失败", false));
     }
 
@@ -43,6 +45,17 @@ public class AdministratorsController {
         return service.update(administratorsVo) ?
                 json(new ResponseVO(200, "修改成功", administratorsVo)) :
                 json(new ResponseVO(500, "修改失败", false));
+    }
+
+    @RequestMapping("/admins")
+    public ViewResult getAdmins(@RequestModel AdminPageVo adminPageVo) {
+
+        Pagination pagination = new Pagination(adminPageVo.getPageSize(), adminPageVo.getPageNo(), service.count());
+        List<AdministratorsVo> pageExercises = service.getAdmins(pagination);
+
+        PagedVO<AdministratorsVo> pagedVO = new PagedVO<>(new PaginationText(pagination), pageExercises);
+
+        return json(new ResponseVO(200, "ok", pagedVO));
     }
 
     @RequestMapping("/delete")

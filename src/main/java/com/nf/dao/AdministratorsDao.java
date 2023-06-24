@@ -1,6 +1,9 @@
 package com.nf.dao;
 
 import com.nf.entity.AdministratorsEntity;
+import com.nf.entity.Pagination;
+
+import java.util.List;
 
 public interface AdministratorsDao {
     /**
@@ -37,6 +40,19 @@ public interface AdministratorsDao {
      * @return 被影响的行
      */
     int update(AdministratorsEntity administratorsEntity);
+
+    /**
+     * 获取全部题目数量
+     * @return 题目数量
+     */
+    Long count();
+
+    /**
+     * 分页获取管理员
+     * @param pagination 分页方法
+     * @return 管理员集合
+     */
+    List<AdministratorsEntity> getAdmins(Pagination pagination);
 
     /**
      * 删除账号
