@@ -23,7 +23,7 @@ public class AdministratorsController {
     @RequestMapping("/longin")
     public ViewResult longin(@RequestModel AdministratorsVo administratorsVo) {
 
-        AdministratorsVo admin = Optional.of(service.getAdmin(administratorsVo.getId()))
+        AdministratorsVo admin = Optional.ofNullable(service.getAdmin(administratorsVo.getId()))
                 .orElse(service.getAdmin(administratorsVo.getName()));
 
         return service.longin(administratorsVo) ?
