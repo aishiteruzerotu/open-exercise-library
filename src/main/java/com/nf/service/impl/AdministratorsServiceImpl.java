@@ -52,6 +52,10 @@ public class AdministratorsServiceImpl implements AdministratorsService {
 
     @Override
     public boolean delete(int id) {
+        AdministratorsEntity admin = dao.getAdmin(id);
+        if (admin.getAuthority()){
+            return false;
+        }
         return 1 == dao.delete(id);
     }
 }

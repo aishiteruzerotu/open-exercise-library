@@ -6,7 +6,7 @@ public class AdministratorsVo {
     private Integer id ;//用户id
     private String name ;//用户名称
     private String password ;//密码
-    private Boolean authority;//权限
+    private Boolean authority = false;//权限
     private String[] listing;//显示管理员可操作的数组
 
     @Override

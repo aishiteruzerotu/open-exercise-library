@@ -59,10 +59,13 @@ public class AdministratorsController {
     }
 
     @RequestMapping("/delete")
-    public ViewResult delete(@RequestParam("id") int id) {
+    public ViewResult delete(@RequestParam(value = "deleteId" ,defaultValue = "-1") int deleteId,@RequestParam(value = "id",defaultValue = "-1") int id) {
 
-        return service.delete(id) ?
+        if (deleteId==id){
+            return json(new ResponseVO(500, "无法删除自己", false));
+        }
+        return service.delete(deleteId) ?
                 json(new ResponseVO(200, "删除成功", true)) :
-                json(new ResponseVO(500, "删除成功", false));
+                json(new ResponseVO(500, "无法删除该员工，可能已经删除或是有高级权限", false));
     }
 }
