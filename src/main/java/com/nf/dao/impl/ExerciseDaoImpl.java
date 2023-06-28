@@ -6,15 +6,12 @@ import com.nf.SqlExecutorEx;
 import com.nf.dao.ExerciseDao;
 import com.nf.entity.ExerciseEntity;
 import com.nf.entity.Pagination;
+import com.nf.handler.BeanHandler;
 import com.nf.handler.BeanListHandler;
 import com.nf.handler.ScalarHandler;
 import com.nf.util.DataSourceUtils;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.stream.Collectors;
 
 public class ExerciseDaoImpl implements ExerciseDao {
     private final SqlExecutorEx executor = DataSourceUtils.getSqlExecutorEx();
@@ -28,9 +25,8 @@ public class ExerciseDaoImpl implements ExerciseDao {
 
     @Override
     public ExerciseEntity getExercise() {
-        Random random = new Random();
-        int id = random.nextInt(this.count().intValue()) + 1;
-        return this.getExercise(id);
+        String sql = generate.generateSelect(ExerciseEntity.class) + " as t1 where t1.id>=(RAND()*(select MAX(id) from exerciseLibrary))LIMIT 1";
+        return executor.query(sql,new BeanHandler<>(ExerciseEntity.class));
     }
 
     @Override
@@ -43,25 +39,6 @@ public class ExerciseDaoImpl implements ExerciseDao {
     public ExerciseEntity getExercise(int id, String types) {
         String sql = generate.generateSelect(ExerciseEntity.class) + " where id=? and types=?";
         return executor.queryBean(sql, ExerciseEntity.class, id, types);
-    }
-
-    /**
-     * 测试随机抓取数据
-     *
-     * @param args 入口
-     */
-    public static void main(String[] args) {
-        Random random = new Random();
-        List<Integer> list = new ArrayList<>();
-        for (int i1 = 0; i1 < 40000; i1++) {
-            list.add(random.nextInt(new ExerciseDaoImpl().count().intValue()) + 1);
-        }
-
-        Map<Integer, List<Integer>> map = list.stream().collect(Collectors.groupingBy(integer -> integer));
-
-        map.forEach((key, val) -> {
-            System.out.println("" + key + " --- " + (long) val.size());
-        });
     }
 
     @Override
