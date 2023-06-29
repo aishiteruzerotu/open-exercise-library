@@ -25,8 +25,12 @@ public class ExerciseDaoImpl implements ExerciseDao {
 
     @Override
     public ExerciseEntity getExercise() {
-        String sql = generate.generateSelect(ExerciseEntity.class) + " as t1 where t1.id>=(RAND()*(select MAX(id) from exerciseLibrary))LIMIT 1";
-        return executor.query(sql,new BeanHandler<>(ExerciseEntity.class));
+        String sql = "select t1.id,types,correct,topic,toOption,answer,total,numberErrors from exerciseLibrary AS t1 " +
+                " JOIN (SELECT ROUND(RAND() * ((SELECT MAX(id) FROM exerciseLibrary)-(SELECT MIN(id) FROM exerciseLibrary)) " +
+                "+(SELECT MIN(id) FROM exerciseLibrary)) AS id) AS t2 " +
+                " WHERE t1.id >= t2.id " +
+                " ORDER BY t1.id LIMIT 1";
+        return executor.queryBean(sql,ExerciseEntity.class);
     }
 
     @Override
