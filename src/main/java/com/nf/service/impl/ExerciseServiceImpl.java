@@ -5,6 +5,7 @@ import com.nf.dao.ExerciseDao;
 import com.nf.dao.impl.ExerciseDaoImpl;
 import com.nf.entity.ExerciseEntity;
 import com.nf.entity.Pagination;
+import com.nf.mvc.exception.exceptions.UnableToProcessTypeException;
 import com.nf.service.ExerciseLibraryConstants;
 import com.nf.service.ExerciseService;
 import com.nf.vo.ExerciseVo;
@@ -83,9 +84,25 @@ public class ExerciseServiceImpl implements ExerciseService {
      */
     private ExerciseEntity copyExerciseEntity(ExerciseVo exercise) {
         ExerciseEntity entity = Convert.toBean(ExerciseEntity.class, exercise);
+        if (entity.getTopic().equals("")){
+            throw new RuntimeException("题目不能为空");
+        }
 
-        entity.setToOption(ExerciseServiceImpl.reduce(exercise.getToOptions()));
-        entity.setAnswer(ExerciseServiceImpl.reduce(exercise.getAnswers()));
+        String[] toOptions = exercise.getToOptions();
+        for (String toOption : toOptions) {
+            if (toOption.equals("")){
+                throw new RuntimeException("选项信息不能有空值");
+            }
+        }
+        entity.setToOption(ExerciseServiceImpl.reduce(toOptions));
+
+        String[] answers = exercise.getAnswers();
+        for (int i = 0;i<answers.length;i++) {
+            if (answers[i].equals("")){
+                answers[i] = "略";
+            }
+        }
+        entity.setAnswer(ExerciseServiceImpl.reduce(answers));
 
         return entity;
     }

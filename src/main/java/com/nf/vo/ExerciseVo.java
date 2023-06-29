@@ -49,7 +49,7 @@ public class ExerciseVo {
      * @return 不是返回空，是返回 (易错题)
      */
     public String getErrorRateToText() {
-        return this.numberErrors > 70 ? "(易错题)" : "";
+        return Math.round(this.errorRate()) > 70L ? "(易错题)" : "";
     }
 
     public String getAnswerText() {
@@ -65,7 +65,7 @@ public class ExerciseVo {
     }
 
     public String getTopicText() {
-        return "(" + this.getTypes() + ") " + this.getId() + "、 " + this.getErrorRateToText() + this.getTopic();
+        return "(" + this.getTypes() + ") " + this.getId() + "、" + this.getErrorRateToText() + this.getTopic();
     }
 
     @Override
