@@ -32,6 +32,11 @@ public class AdministratorsServiceImpl implements AdministratorsService {
 
     @Override
     public boolean signUp(AdministratorsVo administratorsVo) {
+        AdministratorsEntity admin = dao.getAdmin(administratorsVo.getName());
+        if (admin!=null){
+            throw new RuntimeException("用户名已被占用");
+        }
+
         return 1 == dao.signUp(Convert.toBean(AdministratorsEntity.class, administratorsVo));
     }
 

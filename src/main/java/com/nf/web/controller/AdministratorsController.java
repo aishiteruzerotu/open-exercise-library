@@ -34,6 +34,9 @@ public class AdministratorsController {
     @RequestMapping("/sign/up")
     public ViewResult signUp(@RequestModel AdministratorsVo administratorsVo) {
 
+        //判断管理员名字或密码是否为空
+        this.check(administratorsVo);
+
         return service.signUp(administratorsVo) ?
                 json(new ResponseVO(200, "注册成功", true)) :
                 json(new ResponseVO(500, "注册失败", false));
@@ -42,9 +45,32 @@ public class AdministratorsController {
     @RequestMapping("/update")
     public ViewResult update(@RequestModel AdministratorsVo administratorsVo) {
 
+        //判断管理员名字或密码是否为空
+        this.check(administratorsVo);
+
+        if (administratorsVo.getId() == null) {
+            return json(new ResponseVO(500, "修改失败", false));
+        }
+
         return service.update(administratorsVo) ?
                 json(new ResponseVO(200, "修改成功", administratorsVo)) :
                 json(new ResponseVO(500, "修改失败", false));
+    }
+
+    /**
+     * 判断管理员名字或密码是否为空
+     *
+     * @param administratorsVo 请求的管理员参数
+     */
+    private void check(AdministratorsVo administratorsVo) {
+        this.notStringNull(administratorsVo.getName(),"用户名不能为空");
+        this.notStringNull(administratorsVo.getPassword(),"密码不能为空");
+    }
+
+    private void notStringNull(String str ,String errMsg){
+        if (str == null || str.isEmpty()) {
+            throw new RuntimeException(errMsg);
+        }
     }
 
     @RequestMapping("/admins")
@@ -59,9 +85,10 @@ public class AdministratorsController {
     }
 
     @RequestMapping("/delete")
-    public ViewResult delete(@RequestParam(value = "deleteId" ,defaultValue = "-1") int deleteId,@RequestParam(value = "id",defaultValue = "-1") int id) {
+    public ViewResult delete(@RequestParam(value = "deleteId", defaultValue = "-1") int deleteId,
+                             @RequestParam(value = "id", defaultValue = "-1") int id) {
 
-        if (deleteId==id){
+        if (deleteId == id) {
             return json(new ResponseVO(500, "无法删除自己", false));
         }
         return service.delete(deleteId) ?
